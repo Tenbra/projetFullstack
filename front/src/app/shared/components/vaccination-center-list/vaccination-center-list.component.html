@@ -1,0 +1,9 @@
+<div >
+    <ul *ngFor="let center of centers | async">
+        <app-vaccination-center (deleted)="onDelete($event)" [selectedCentre]="center"></app-vaccination-center>
+        <div *ngIf="personnel == null">
+            <a routerLink="centers/{{center.id}}" >Choisir</a>
+        </div>
+        
+    </ul>
+</div>

@@ -1,0 +1,14 @@
+    <h2>{{selectedCentre.nom }}</h2>
+    <div>
+        {{selectedCentre.adresse.complement}}
+        <br>
+        <span>{{selectedCentre.adresse.codepostal}} {{selectedCentre.adresse.ville}}</span>
+    </div>
+
+    <div *ngIf="personnel != null">
+        <div *ngIf='personnel.roles.length==3'>
+            <button routerLink="/private/edit/center/{{selectedCentre.id}}">Modifier</button>
+            <button routerLink="/private/centre/{{selectedCentre.id}}">Personnels</button>
+            <button (click)="supprimer()">Supprimer</button>
+        </div>
+    </div>

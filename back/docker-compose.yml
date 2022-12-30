@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: fullstack-covid
+    depends_on:
+      - db
+    environment:
+    # Mettre ici toutes les configs du fichier application.yaml
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/covid-db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgre
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_LIQUIBASE_ENABLED=false
+
+  db:
+    image: postgres:14.5
+    container_name: db
+    ports:
+    # initialement sur 5432 dans le conteneur, transferer sur le port 5433 de l'hote 
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgre
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=covid-db

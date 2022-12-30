@@ -1,0 +1,12 @@
+<div *ngIf="centre !== null">
+    <app-vaccination-center [selectedCentre]="centre"></app-vaccination-center>
+</div>
+<ul>
+    <li><a (click)="prev()" >prev</a></li>
+    <li><span>{{date.toLocaleDateString()}}</span></li>
+    <li><a (click)="next()">next</a></li>
+</ul>
+<div>
+    <input type="search" [(ngModel)]="patient" (keyup)="getReservationsByName(date, patient)" >
+</div>
+<app-reservation-list [reservations]="reservations"> </app-reservation-list>

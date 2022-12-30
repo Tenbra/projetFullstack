@@ -1,0 +1,14 @@
+<form [formGroup]="loginForm">
+    <label for="login">Login: </label>
+    <input type="email" formControlName="login" id="login" >
+  
+    <label for="pass">Password: </label>
+    <input type="password" formControlName="password" id="pass">
+
+  
+    <button type="submit" 
+        (click)="login()"
+        [disabled]="loginForm.invalid"
+        >Se Connecter
+    </button>
+</form>

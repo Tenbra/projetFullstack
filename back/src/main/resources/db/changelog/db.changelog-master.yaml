@@ -1,0 +1,108 @@
+databaseChangeLog:
+   - changeSet:
+       id: 1
+       author: Liquibase
+       changes:
+       - createTable:
+           tableName: test
+           columns:
+           - column:
+               name: test_column
+               type: INT
+               constraints:  
+                   primaryKey:  true  
+                   nullable:  false  
+                   tableName: test_table
+   - changeSet:
+       id: 2
+       author: Liquibase
+       changes:
+       - createTable:
+           tableName: personne
+           columns:
+           - column:
+               name: id_personne
+               type: INT
+               constraints:  
+                   primaryKey:  true  
+                   nullable:  false  
+           - column:
+               name: nom
+               type: VARCHAR
+               constraints:  
+                   nullable:  false  
+           - column:
+               name: prenom
+               type: VARCHAR
+               constraints:  
+                   nullable:  false
+           - column:
+               name: date
+               type: date
+               constraints:  
+                   nullable:  false
+           - column:
+               name: numero
+               type: INT
+               constraints:  
+                   nullable:  false    
+           - column:
+               name: email
+               type: VARCHAR
+               constraints:  
+                   nullable:  true  
+       - createTable:
+           tableName: adresse
+           columns:
+           - column:
+               name: id_adresse
+               type: INT
+               constraints:  
+                   primaryKey:  true  
+                   nullable:  false  
+           - column:
+               name: ville
+               type: VARCHAR
+               constraints:  
+                   nullable:  false  
+           - column:
+               name: pays
+               type: VARCHAR
+               constraints:  
+                   nullable:  false
+           - column:
+               name: adresse
+               type: VARCHAR
+               constraints:  
+                   nullable:  true  
+           - column:
+               name: code_postale
+               type: INT
+               constraints:  
+                   nullable:  false    
+       - createTable:
+           tableName: centre
+           columns:
+           - column:
+               name: id_centre
+               type: INT
+               constraints:  
+                   primaryKey:  true  
+                   nullable:  false  
+           - column:
+               name: nom
+               type: VARCHAR
+               constraints:  
+                   nullable:  false  
+           - column:
+               name: prenom
+               type: VARCHAR
+               constraints:  
+                   nullable:  false
+           - column:
+               name: date
+               type: date
+               constraints:  
+                   nullable:  false
+
+

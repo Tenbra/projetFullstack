@@ -1,0 +1,6 @@
+<ul *ngFor="let reser of reservations | async">
+    <li>{{reser.patient.prenom}} {{reser.patient.nom}}  
+        <button *ngIf="reser.personnel==null" (click)="validate(reser.id)">Valider</button>
+        <span *ngIf="reser.personnel!=null">yes</span>
+    </li> 
+</ul>

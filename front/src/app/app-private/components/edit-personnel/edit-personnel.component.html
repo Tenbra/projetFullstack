@@ -1,0 +1,35 @@
+<form [formGroup]="editForm">
+    <label for="prenom">Prenom: </label>
+    <input type="text" formControlName="prenom" id="prenom">
+    <br>
+    <label for="nom">Nom: </label>
+    <input type="text" formControlName="nom" id="nom"> 
+    <br>
+    <label for="email">Email: </label>
+    <input type="email" formControlName="email" id="email"> 
+    <br>
+    <label for="password">Password: </label>
+    <input type="password" formControlName="password" id="password"> 
+    <br>
+    <label for="role">Role :</label>
+    <select formControlName="role" id="role" >
+        <option value="MEDECIN">Medecin</option>
+        <option value="ADMIN">Administrateur</option>
+        <option value="SUPER">Super Admin</option>
+    </select>
+    <br>
+    <label for="centre">Centre de rattachement :</label>
+    <select formControlName="centre" id="centre" >
+        <option *ngFor="let center of centres" value="{{center.id}}">{{center.nom}}</option>
+    </select>
+    <br>
+    <button (click)="annuler()">Annuler</button>
+    <button (click)="desactiver()">Desactiver</button>
+  
+    <button type="submit" 
+        (click)="enregistrer()"
+        [disabled]="editForm.invalid"
+        >Enregistrer
+    </button>
+    
+</form>

@@ -1,0 +1,22 @@
+<div *ngIf="center !== undefined">
+    <app-vaccination-center [selectedCentre]="center"></app-vaccination-center>
+</div>
+<form [formGroup]="bookForm">
+    <label for="prenom">Prenom: </label>
+    <input type="text" formControlName="prenom" id="prenom" >
+  
+    <label for="nom">Nom: </label>
+    <input type="text" formControlName="nom" id="nom"> <br>
+  
+    <label for="email">Email: </label>
+    <input type="email" formControlName="email" id="email" > <br>
+
+    <label for="date">Date du rendez-vous</label>
+    <input type="date" formControlName="date" id="date" >
+  
+    <button type="submit" 
+        (click)="reserver()"
+        [disabled]="bookForm.invalid"
+        >Reserver !
+    </button>
+</form>

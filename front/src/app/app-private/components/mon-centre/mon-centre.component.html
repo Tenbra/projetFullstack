@@ -1,0 +1,7 @@
+
+<div *ngIf="centre !== undefined">
+    <app-vaccination-center [selectedCentre]="centre"></app-vaccination-center>
+</div>
+<div> <app-personnel-list (deleted)="onDeleted($event)" [role]="'MEDECIN'" [personnels]="medecins"></app-personnel-list> </div>
+<div *ngIf="id!==0"> <app-personnel-list (deleted)="onDeleted($event)" [role]="'ADMIN'" [personnels]="admins"></app-personnel-list> </div>
+

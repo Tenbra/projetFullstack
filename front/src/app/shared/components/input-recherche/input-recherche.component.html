@@ -1,0 +1,9 @@
+<div>
+    <input type="search" placeholder="Entrez une ville" size="50" [(ngModel)]="ville" (keyup)="getVaccinationCenterByVille(ville)"/>
+</div>
+<div *ngIf="personnel != null">
+    <button routerLink="/private/edit/center/0">Nouveau</button>
+
+</div>
+<br>
+<app-vaccination-center-list (deleted)="onDeleted($event)"  [centers]="centers" ></app-vaccination-center-list>

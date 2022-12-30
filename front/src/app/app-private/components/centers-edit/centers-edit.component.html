@@ -1,0 +1,22 @@
+<form [formGroup]="editForm">
+    <label for="nom">Nom: </label>
+    <input type="text" formControlName="nom" id="nom"> 
+    <br>
+    <label for="complement">Adresse: </label>
+    <input type="complement" formControlName="complement" id="complement"> 
+    <br>
+    <label for="codepostal">Code postal: </label>
+    <input type="text" formControlName="codepostal" id="codepostal"> 
+    <br>
+    <label for="ville">Ville: </label>
+    <input type="text" formControlName="ville" id="ville">     
+    <br>
+    <button routerLink="/private/centre/{{id}}">Personnels</button>
+    <button (click)="annuler()">Annuler</button>  
+    <button type="submit" 
+        (click)="enregistrer()"
+        [disabled]="editForm.invalid"
+        >Enregistrer
+    </button>
+    
+</form>
