@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
         http
         .authorizeHttpRequests()
-            .antMatchers("/api/public/**","/api/auth/login").permitAll()
+            .antMatchers("/api/public/**","/api/auth/**").permitAll()
             .antMatchers("/api/private/**").hasAuthority("ADMIN")
             .anyRequest().authenticated()
             .and()

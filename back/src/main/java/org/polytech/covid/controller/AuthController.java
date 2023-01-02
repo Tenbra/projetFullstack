@@ -34,6 +34,11 @@ public class AuthController {
         return user;
     }
 
+    @GetMapping(path="auth/logout")
+    public void logout(){
+        authService.logout();
+    }
+
     
     @GetMapping("/user")
     public Object user(HttpServletRequest request){

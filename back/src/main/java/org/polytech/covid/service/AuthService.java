@@ -29,10 +29,9 @@ public class AuthService implements UserDetailsService {
         else return null;
     }
 
-    public Object logout() {
+    public void logout() {
         SecurityContext context = SecurityContextHolder.createEmptyContext();            
         SecurityContextHolder.setContext(context);
-        return context.getAuthentication().getPrincipal();
     }
 
     @Override
