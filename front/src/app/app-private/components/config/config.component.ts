@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/core/service/admin.service';
 })
 export class ConfigComponent {
 
-  super! : Personnel[];
+  superAdmins! : Personnel[];
 
   constructor(private service: AdminService
     ) { }
@@ -19,13 +19,17 @@ export class ConfigComponent {
   }
 
   getPersonnels(){
-    this.service.getAllPersonnel().subscribe(personnels =>{
-      this.getSuper(personnels)
+    this.service.getAllPersonnel().subscribe(resp =>{
+      this.service.all_personnel = resp.body
+      this.service.all_personnel_etag = resp.headers.get("etag")
+      this.getSuperAdmin(resp.body)
+    }, error => {
+      this.getSuperAdmin(this.service.all_personnel)
     });
   }
 
-  getSuper(personnels : Personnel[]){
-    this.super = personnels.filter(function (personnel) {
+  getSuperAdmin(personnels : Personnel[]){
+    this.superAdmins = personnels.filter(function (personnel) {
       return personnel.roles.length === 3;
     });
   }

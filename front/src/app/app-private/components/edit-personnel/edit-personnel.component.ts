@@ -31,9 +31,10 @@ export class EditPersonnelComponent implements OnInit {
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if(this.id!==0){
-      this.service.getPersonnelById(this.id).subscribe( personnel =>{
-        this.personnel = personnel;
-
+      this.service.getPersonnelById(this.id).subscribe(resp =>{        
+        this.service.personnel_by_id = resp.body
+        this.service.personnel_by_id_etag = resp.headers.get("etag")
+        this.personnel = resp.body
         this.editForm = this.formbuilder.group({
           prenom : [this.personnel.prenom, [Validators.required]],
           nom : [this.personnel.nom, [Validators.required]],
@@ -42,7 +43,16 @@ export class EditPersonnelComponent implements OnInit {
           role : [null, [Validators.required]],
           centre : [this.personnel.centre, [Validators.required]]
         })
-
+      }, error => {
+        this.personnel = this.service.personnel_by_id
+        this.editForm = this.formbuilder.group({
+          prenom : [this.personnel.prenom, [Validators.required]],
+          nom : [this.personnel.nom, [Validators.required]],
+          email : [this.personnel.email, [Validators.required, Validators.email]],
+          password : [this.personnel.password, [Validators.required]],
+          role : [null, [Validators.required]],
+          centre : [this.personnel.centre, [Validators.required]]
+        })
       });
     }
 
@@ -55,13 +65,15 @@ export class EditPersonnelComponent implements OnInit {
       centre : [null, [Validators.required]]
     })
     
-    this.servicePublic.getAllVaccinationCenter().subscribe( centers =>{
-      this.centres = centers;         
-    })
+    this.servicePublic.getAllVaccinationCenter().subscribe( resp =>{
+      this.servicePublic.all_center = resp.body
+      this.servicePublic.all_center_etag = resp.headers.get("etag")
+      this.centres = resp.body
+    }, error => {
+      this.centres = this.servicePublic.all_center
+    });
 
-    
-
-    this.selectedCentre = this.service.Center;    
+    this.selectedCentre = this.service.User.centre;    
     
   }
 
@@ -96,24 +108,41 @@ export class EditPersonnelComponent implements OnInit {
     if (this.id!==0) {
       //update
       this.personnel.id = this.id;
-      this.service.putPersonnel(this.personnel).subscribe(personnel => {
-        this.router.navigateByUrl("/private/home")
+      this.service.putPersonnel(this.personnel).subscribe(resp =>{
+        this.service.personnel_by_id = resp.body
+        this.service.personnel_by_id_etag = resp.headers.get("etag")
+        this.personnel = resp.body
+      }, error => {
+        if (error.status==412){
+          //Coder la modale qui demande d'actualiser
+          alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+        }
+        
       });
+      this.router.navigateByUrl("/private/home")
     }else{
       //save      
-      this.service.savePersonnel(this.personnel).subscribe(personnel => {
-        this.router.navigateByUrl("/private/home")
+      this.service.savePersonnel(this.personnel).subscribe(resp =>{
+        this.service.personnel_by_id = resp.body
+        this.service.personnel_by_id_etag = resp.headers.get("etag")
+        this.personnel = resp.body
+      }, error => {
+        if (error.status==412){
+          //Coder la modale qui demande d'actualiser
+          alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+        }
       });
+      this.router.navigateByUrl("/private/home")
     }
     
   }
 
   annuler(){
-    this.router.navigateByUrl("/private/centre")
+    this.router.navigateByUrl("/private/centre/0")
   }
 
   desactiver(){
-    console.log(this.editForm);
+    //desactiver l'utilisateur
     
   }
 

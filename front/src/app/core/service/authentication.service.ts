@@ -27,7 +27,7 @@ export class AuthenticationService {
   }
 
   getUser(){
-    return this.service.Personnel;
+    return this.service.User;
   }
 
   sendCredentials(login: string, password: string) : Observable<Personnel>{

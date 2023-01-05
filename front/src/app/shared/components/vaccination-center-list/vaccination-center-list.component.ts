@@ -12,18 +12,16 @@ import { VaccinationCenter } from '../../../core/model/vaccination-center';
 export class VaccinationCenterListComponent implements OnInit {
 
   @Output() deleted = new EventEmitter<VaccinationCenter>();
-  @Input() centers! : Observable<VaccinationCenter[]>;
-  selected?: VaccinationCenter;
+  @Input() centers! : VaccinationCenter[];
   personnel! : Personnel
 
   constructor(private admin: AdminService) { }
 
   ngOnInit(): void {
-    this.personnel = this.admin.Personnel;
+    this.personnel = this.admin.User;
   }
 
   onDelete(centre : VaccinationCenter){
-    delete this.selected;
     this.deleted.emit(centre);
   }
 

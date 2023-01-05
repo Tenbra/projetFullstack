@@ -13,7 +13,7 @@ import { VaccinationService } from '../../../core/service/vaccination.service';
 export class InputRechercheComponent implements OnInit {
 
   ville="";
-  centers! : Observable<VaccinationCenter[]>;
+  centers! : VaccinationCenter[];
   personnel! : Personnel;
 
   constructor( 
@@ -23,16 +23,34 @@ export class InputRechercheComponent implements OnInit {
 
   ngOnInit(): void {
     this.getVaccinationCenter();
-    this.personnel = this.admin.Personnel;
+    this.personnel = this.admin.User;
 
   }
 
   getVaccinationCenter(){
-    this.centers = this.service.getAllVaccinationCenter();
+    this.service.getAllVaccinationCenter().subscribe(resp =>{
+    this.service.all_center = resp.body;
+    this.centers = resp.body;
+    this.service.all_center_etag = resp.headers.get("etag");
+    }, error => {
+      this.centers = this.service.all_center;
+    });
   }
 
   getVaccinationCenterByVille(villeSearched : string){
-    this.centers = this.service.getVaccinationCenterByVille(villeSearched);
+    if(villeSearched==""){
+      this.getVaccinationCenter()
+    }
+    else{
+      this.service.getVaccinationCenterByVille(villeSearched).subscribe(resp =>{
+        this.service.center_by_ville = resp.body;
+        this.centers = resp.body;
+        this.service.center_by_ville_etag = resp.headers.get("etag");
+        }, error => {
+          this.centers = this.service.center_by_ville;
+        });
+    }
+    
   }
 
   onDeleted(center : VaccinationCenter){

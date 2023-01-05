@@ -11,7 +11,7 @@ import { AdminService } from 'src/app/core/service/admin.service';
 })
 export class ReservationListComponent implements OnInit {
 
-  @Input() reservations! : Observable<Reservation[]>;
+  @Input() reservations! : Reservation[];
 
   reservation! : Reservation;
 
@@ -25,9 +25,20 @@ export class ReservationListComponent implements OnInit {
   }
 
   validate(id : number | null): void {
-    this.service.putReservation(id,this.service.Personnel).subscribe( reservation =>{
+    this.service.putReservation(id,this.service.User).subscribe( resp=>{
+      this.service.reservation = resp.body;
+      this.service.reservation_etag = resp.headers.get("etag");
       this.router.navigateByUrl('private/home');
-    })
+    }, error => {
+      if (error.status==412){
+        //Coder la modale qui demande d'actualiser
+        alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+      }
+    });
   }
+
+
+
+  
 
 }

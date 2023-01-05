@@ -16,9 +16,7 @@ export class CentersEditComponent {
   editForm! : FormGroup;
   centre! : VaccinationCenter;
   modifiedCenter! : VaccinationCenter;
-
   id! : number | null;
-  personnels! : Personnel[];
 
   constructor(
     private formbuilder: FormBuilder,
@@ -31,16 +29,26 @@ export class CentersEditComponent {
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if(this.id!==0){
-      this.servicePublic.getVaccinationCenterById(this.id).subscribe( center =>{
-        this.centre = center;        
+      this.servicePublic.getVaccinationCenterById(this.id).subscribe(resp =>{
+        console.log("before : "+ this.servicePublic.center_by_id_etag);
+        this.servicePublic.center_by_id = resp.body
+        this.servicePublic.center_by_id_etag = resp.headers.get("etag")
+        this.centre = resp.body
         this.editForm = this.formbuilder.group({
           nom : [this.centre.nom, [Validators.required]],
           complement : [this.centre.adresse.complement, [Validators.required]],
           codepostal : [this.centre.adresse.codepostal, [Validators.required]],
           ville : [this.centre.adresse.ville, [Validators.required]],
         })
-        
-      });
+      }, error => {
+        this.centre = this.servicePublic.center_by_id
+        this.editForm = this.formbuilder.group({
+          nom : [this.centre.nom, [Validators.required]],
+          complement : [this.centre.adresse.complement, [Validators.required]],
+          codepostal : [this.centre.adresse.codepostal, [Validators.required]],
+          ville : [this.centre.adresse.ville, [Validators.required]],
+        })
+      });              
     }
 
     this.editForm = this.formbuilder.group({
@@ -50,16 +58,9 @@ export class CentersEditComponent {
       ville : [null, [Validators.required]]
     })
     
-    /*
-    this.service.getPersonnelByCenter(this.id).subscribe( personnels =>{
-      this.personnels = personnels;         
-    })    
-    */
   }
 
   enregistrer(){
-    
-    
 
     this.modifiedCenter = {
       id : null,
@@ -75,14 +76,30 @@ export class CentersEditComponent {
     if (this.id!==0) {
       //update
       this.modifiedCenter.id = this.id;
-      this.service.putCentre(this.modifiedCenter).subscribe(center => {
-        this.router.navigateByUrl("/private/home")
+      this.service.putCentre(this.modifiedCenter).subscribe(resp =>{
+        this.servicePublic.center_by_id = resp.body
+        this.servicePublic.center_by_id_etag = resp.headers.get("etag")
+        this.centre = resp.body
+      }, error => {
+        if (error.status==412){
+          //Coder la modale qui demande d'actualiser
+          alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+        }
       });
+      this.router.navigateByUrl("/private/home")
     }else{
       //save      
-      this.service.saveCentre(this.modifiedCenter).subscribe(center => {
-        this.router.navigateByUrl("/private/home")
+      this.service.saveCentre(this.modifiedCenter).subscribe(resp =>{
+        this.servicePublic.center_by_id = resp.body
+        this.servicePublic.center_by_id_etag = resp.headers.get("etag")
+        this.centre = resp.body
+      }, error => {
+        if (error.status==412){
+          //Coder la modale qui demande d'actualiser
+          alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+        }
       });
+      this.router.navigateByUrl("/private/home")
     }
     
   }

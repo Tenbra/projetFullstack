@@ -13,10 +13,12 @@ export class SidebarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.service.getPersonnel().subscribe( personnel =>{
-      this.service.Center = personnel.centre;
-      this.service.Personnel = personnel;
-    })
+    this.service.getUser().subscribe( resp =>{
+      this.service.User_etag = resp.headers.get("etag");      
+      this.service.User = resp.body;
+    }, error => {
+      
+    });
   }
 
 }

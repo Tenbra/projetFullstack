@@ -20,7 +20,7 @@ export class VaccinationCenterComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.personnel = this.admin.Personnel
+    this.personnel = this.admin.User
   }
 
   supprimer(){

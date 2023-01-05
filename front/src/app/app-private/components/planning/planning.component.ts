@@ -13,7 +13,7 @@ export class PlanningComponent implements OnInit {
 
   centre! : VaccinationCenter;
   patient! : string;
-  reservations! : Observable<Reservation[]>;
+  reservations! : Reservation[];
   date! : Date;
   day = 0;
 
@@ -22,7 +22,7 @@ export class PlanningComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.centre = this.service.Center;
+    this.centre = this.service.User.centre;
     this.date = new Date();
     this.getReservations(this.date);
   }
@@ -30,13 +30,25 @@ export class PlanningComponent implements OnInit {
   getReservations(date : Date): void {
     let day = date.getDate() > 9 ? ""+date.getDate() : "0"+date.getDate();
     let month = date.getMonth()+1 > 9 ? ""+(date.getMonth()+1) : "0"+(date.getMonth()+1);
-    this.reservations = this.service.getReservationByDay(date.getFullYear()+"-"+month+"-"+day);    
+    this.service.getReservationByDay(date.getFullYear()+"-"+month+"-"+day).subscribe(resp =>{
+      this.service.reservations_by_date = resp.body;
+      this.reservations = resp.body;
+      this.service.reservations_by_date_etag = resp.headers.get("etag");
+      }, error => {
+        this.reservations = this.service.reservations_by_date;
+      });
   }
 
   getReservationsByName(date : Date, nom : string): void {
     let day = date.getDate() > 9 ? ""+date.getDate() : "0"+date.getDate();
     let month = date.getMonth()+1 > 9 ? ""+(date.getMonth()+1) : "0"+(date.getMonth()+1);
-    this.reservations = this.service.getReservationByNom(date.getFullYear()+"-"+month+"-"+day, this.patient);    
+    this.service.getReservationByNom(date.getFullYear()+"-"+month+"-"+day, this.patient).subscribe(resp =>{
+      this.service.reservations_by_nom = resp.body;
+      this.reservations = resp.body;
+      this.service.reservations_by_nom_etag = resp.headers.get("etag");
+      }, error => {
+        this.reservations = this.service.reservations_by_date;
+      });;    
   }
 
   next(): void {

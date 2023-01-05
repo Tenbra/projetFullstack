@@ -6,4 +6,4 @@
 
 </div>
 <br>
-<app-vaccination-center-list (deleted)="onDeleted($event)"  [centers]="centers" ></app-vaccination-center-list>
+<app-vaccination-center-list *ngIf="centers" (deleted)="onDeleted($event)"  [centers]="centers" ></app-vaccination-center-list>

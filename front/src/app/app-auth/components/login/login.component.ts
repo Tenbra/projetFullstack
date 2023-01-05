@@ -35,8 +35,7 @@ export class LoginComponent implements OnInit {
     this.service.sendCredentials(login, password).subscribe(personnel =>{
       if (personnel!==null){
         this.service.login(login, password);
-        this.admin.Center = personnel.centre
-        this.admin.Personnel = personnel;          
+        this.admin.User = personnel;          
         this.router.navigateByUrl('private/home');
         
       }

@@ -5,6 +5,7 @@ import { InputRechercheComponent } from './components/input-recherche/input-rech
 import { VaccinationCenterListComponent } from './components/vaccination-center-list/vaccination-center-list.component';
 import { FormsModule } from '@angular/forms';
 import { AppPublicRoutingModule } from '../app-public/app-public-routing.module';
+import {MatButtonModule} from '@angular/material/button';
 
 
 
@@ -17,7 +18,8 @@ import { AppPublicRoutingModule } from '../app-public/app-public-routing.module'
   imports: [
     CommonModule,
     FormsModule,
-    AppPublicRoutingModule
+    AppPublicRoutingModule,
+    MatButtonModule
   ],
   exports: [
     InputRechercheComponent,

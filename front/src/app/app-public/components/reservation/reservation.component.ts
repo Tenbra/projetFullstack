@@ -28,8 +28,13 @@ export class ReservationComponent implements OnInit {
   ngOnInit(): void {
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.service.getVaccinationCenterById(id).subscribe(center =>{
-      this.center = center;
+    
+    this.service.getVaccinationCenterById(id).subscribe(resp =>{
+      this.service.center_by_id = resp.body;
+      this.center = resp.body
+      this.service.center_by_id_etag = resp.headers.get("etag")
+    }, error => {
+      this.center = this.service.center_by_id;
     });
     
     this.bookForm = this.formbuilder.group({

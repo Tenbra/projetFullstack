@@ -29,27 +29,38 @@ export class MonCentreComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.user = this.service.Personnel;
+    this.user = this.service.User;
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    if (this.id==0) this.centre = this.service.Center;
+    if (this.id==0) this.centre = this.service.User.centre;
     else{
-      this.servicePublic.getVaccinationCenterById(this.id).subscribe(centre =>{
-        this.centre = centre;
-      })
+      this.servicePublic.getVaccinationCenterById(this.id).subscribe(resp =>{
+        this.servicePublic.center_by_id = resp.body;
+        this.servicePublic.center_by_id_etag = resp.headers.get("etag")
+        this.centre = resp.body;
+      }, error => {
+        this.centre = this.servicePublic.center_by_id;
+      });
     }
     this.getPersonnels()
   }
 
   getPersonnels(){
-    if (this.id !=0) this.service.getMedecinsByCentreId(this.id).subscribe(personnels =>{
-      this.getMedecin(personnels)
-      this.getAdmin(personnels)
+    if (this.id !=0) this.service.getPersonnelByCentreId(this.id).subscribe(resp =>{
+      this.service.personnel_by_centre_id = resp.body
+      this.service.personnel_by_centre_id_etag = resp.headers.get("etag")
+      this.getMedecin(resp.body)
+      this.getAdmin(resp.body)
+    }, error => {
+      this.getMedecin(this.service.personnel_by_centre_id)
+      this.getAdmin(this.service.personnel_by_centre_id)
+    });    
+    else this.service.getPersonnelByCentreId(this.service.User.centre.id).subscribe(resp =>{
+      this.service.personnel_by_centre_id = resp.body
+      this.service.personnel_by_centre_id_etag = resp.headers.get("etag")
+      this.getMedecin(resp.body)
+    }, error => {
+      this.getMedecin(this.service.personnel_by_centre_id)
     });
-    else this.service.getMedecinsByCentreId(this.service.Center.id).subscribe(personnels =>{
-      this.getMedecin(personnels)
-    });
-    
-    
   }
 
   getMedecin(personnels : Personnel[]){
