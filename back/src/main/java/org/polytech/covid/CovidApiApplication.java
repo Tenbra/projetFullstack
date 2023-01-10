@@ -40,11 +40,11 @@ public class CovidApiApplication {
             centreInterface.save(new Centre("CHRU Strasbourg",new Adresse("Strasbourg","67000","FRANCE","place de l'hopitale")));
             roleRepository.save(new Role("MEDECIN"));
             roleRepository.save(new Role("ADMIN"));
-            roleRepository.save(new Role("SUPER"));
-            personnelInterface.save(new Personnel("Tenede", "Bryan", "tenede@bryan.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("ADMIN"), roleRepository.searchByRole("MEDECIN"), roleRepository.searchByRole("SUPER")), centreInterface.getReferenceById(1)));
-            personnelInterface.save(new Personnel("Tenede", "Bryan", "tene@bryan.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("ADMIN"), roleRepository.searchByRole("MEDECIN")), centreInterface.getReferenceById(1)));
+            roleRepository.save(new Role("SUPER_ADMIN"));
+            personnelInterface.save(new Personnel("Tenede", "Bryan", "tenede@bryan.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("ADMIN")), centreInterface.getReferenceById(1)));
+            personnelInterface.save(new Personnel("Tenede", "Bryan", "tene@bryan.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("MEDECIN")), centreInterface.getReferenceById(1)));
             personnelInterface.save(new Personnel("Tenede", "Bryan", "gautier@klam.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("MEDECIN")), centreInterface.getReferenceById(1)));
-            personnelInterface.save(new Personnel("Tenede", "Bryan", "klam@gautier.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("MEDECIN")), centreInterface.getReferenceById(1)));
+            personnelInterface.save(new Personnel("Tenede", "Bryan", "klam@gautier.com", passwordEncoder.encode("password"), List.of(roleRepository.searchByRole("SUPER_ADMIN")), centreInterface.getReferenceById(1)));
 
         };
 }

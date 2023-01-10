@@ -65,18 +65,25 @@ export class MonCentreComponent implements OnInit {
 
   getMedecin(personnels : Personnel[]){
     this.medecins = personnels.filter(function (personnel) {
-      return personnel.roles.length === 1;
+      return personnel.roles.some(r => r.role=="MEDECIN");
     });
   }
 
   getAdmin(personnels : Personnel[]){
     this.admins = personnels.filter(function (personnel) {
-      return personnel.roles.length === 2;
+      return personnel.roles.some(r => r.role=="ADMIN");
     });
   }
 
   onDeleted(personnel : Personnel){
     this.service.deletePersonnel(personnel.id).subscribe(msg =>{
+      this.getPersonnels();
+    }, error => {
+      if (error.status==403){
+        //Coder la modale qui demande d'actualiser
+        alert("Vous n'avez pas les droits necessaires pour effectuer cette opération")
+      }
+      else alert("Operation impossible à realiser")
       this.getPersonnels();
     });
   }

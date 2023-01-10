@@ -1,12 +1,12 @@
 <table>
     <tr>
-        <th colspan="3"> {{role}}<button routerLink="/private/edit/personnel/0">nouveau</button></th>
+        <th colspan="3"> {{role}}<button routerLink="/private/personnels/0">nouveau</button></th>
     </tr>
     <tbody *ngFor="let personnel of personnels">
         <tr *ngIf="personnel !==null">
             <td>{{personnel.id}}</td>
             <td>{{personnel.prenom}} {{personnel.nom}}</td>
-            <td><button routerLink="/private/edit/personnel/{{personnel.id}}">Modifier</button></td>
+            <td><button routerLink="/private/personnels/{{personnel.id}}">Modifier</button></td>
             <td><button (click)="delete(personnel)">Supprimer</button></td>
         </tr>
     </tbody>

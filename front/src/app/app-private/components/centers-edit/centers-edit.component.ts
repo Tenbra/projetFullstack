@@ -30,7 +30,6 @@ export class CentersEditComponent {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     if(this.id!==0){
       this.servicePublic.getVaccinationCenterById(this.id).subscribe(resp =>{
-        console.log("before : "+ this.servicePublic.center_by_id_etag);
         this.servicePublic.center_by_id = resp.body
         this.servicePublic.center_by_id_etag = resp.headers.get("etag")
         this.centre = resp.body

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Personnel } from '../model/personnel';
 import { Reservation } from '../model/reservation';
+import { Role } from '../model/role';
 import { VaccinationCenter } from '../model/vaccination-center';
 import { VaccinationService } from './vaccination.service';
 
@@ -60,6 +61,10 @@ export class AdminService {
     return localStorage.getItem('token');
   }
 
+  hasRole(role : string){
+    return this.user.roles.some(r => r.role == role)
+  }
+
   getUser() : Observable<any>{
     return this.httpClient.get<any>("api/user/", {
       observe: 'response',
@@ -81,8 +86,7 @@ export class AdminService {
 
   saveCentre(centre: VaccinationCenter) : Observable<any>{
     return this.httpClient.post<any>("api/public/centre", centre, {
-      observe: "response",
-      headers : new HttpHeaders({'If-Match': String(this.service.center_by_id_etag)})
+      observe: "response"
     });
   }  
   
@@ -135,8 +139,7 @@ export class AdminService {
 
   savePersonnel(personnel: Personnel) : Observable<any>{
     return this.httpClient.post<any>("api/private/personnel", personnel, {
-      observe: "response",
-      headers : new HttpHeaders({'If-Match': String(this.personnel_by_id_etag)})
+      observe: "response"
     });
   }
  

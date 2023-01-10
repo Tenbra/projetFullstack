@@ -18,7 +18,7 @@ export class InputRechercheComponent implements OnInit {
 
   constructor( 
     private service: VaccinationService,
-    private admin: AdminService
+    public admin: AdminService
     ) { }
 
   ngOnInit(): void {
@@ -56,6 +56,8 @@ export class InputRechercheComponent implements OnInit {
   onDeleted(center : VaccinationCenter){
     this.admin.deleteCentre(center.id).subscribe(data =>{
       this.getVaccinationCenter();
+    }, error => {
+      alert("Operation impossible, verifiez que vous n'etes pas dans ce centre")
     })
     
   }

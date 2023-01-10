@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Personnel } from 'src/app/core/model/personnel';
+import { Role } from 'src/app/core/model/role';
 import { VaccinationCenter } from 'src/app/core/model/vaccination-center';
 import { AdminService } from 'src/app/core/service/admin.service';
 import { VaccinationService } from 'src/app/core/service/vaccination.service';
@@ -23,7 +24,7 @@ export class EditPersonnelComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
-    private service: AdminService,
+    protected service: AdminService,
     private servicePublic: VaccinationService,
     private router: Router
   ) { }
@@ -79,17 +80,17 @@ export class EditPersonnelComponent implements OnInit {
 
   enregistrer(){
     
-    let role : string[];
+    let role : Role[];
 
     switch (this.editForm.value.role) {
       case 'MEDECIN':
-        role = ["MEDECIN"];
+        role = [{"role" :"MEDECIN"}];
         break;
       case 'ADMIN':
-        role = ["MEDECIN", "ADMIN"];
+        role = [{"role" :"ADMIN"}];
         break;
       case 'SUPER':
-        role = ["MEDECIN", "ADMIN", "SUPER"];
+        role = [{"role" :"SUPER_ADMIN"}];
         break;
       default:
         role = [];
@@ -139,11 +140,6 @@ export class EditPersonnelComponent implements OnInit {
 
   annuler(){
     this.router.navigateByUrl("/private/centre/0")
-  }
-
-  desactiver(){
-    //desactiver l'utilisateur
-    
   }
 
 }

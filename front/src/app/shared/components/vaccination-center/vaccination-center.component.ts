@@ -16,7 +16,7 @@ export class VaccinationCenterComponent implements OnInit {
   personnel! : Personnel
 
   constructor(    
-    private admin: AdminService
+    public admin: AdminService
     ) { }
 
   ngOnInit(): void {

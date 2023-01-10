@@ -30,7 +30,7 @@ export class ConfigComponent {
 
   getSuperAdmin(personnels : Personnel[]){
     this.superAdmins = personnels.filter(function (personnel) {
-      return personnel.roles.length === 3;
+      return personnel.roles.some(r => r.role=="SUPER_ADMIN");
     });
   }
 

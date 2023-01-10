@@ -1,3 +1,4 @@
+import { Role } from "./role";
 import { VaccinationCenter } from "./vaccination-center";
 
 export interface Personnel{
@@ -7,5 +8,5 @@ export interface Personnel{
     email : string;
     password: string;
     centre : VaccinationCenter;
-    roles : string[];
+    roles : Role[];
 }

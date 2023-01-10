@@ -52,6 +52,7 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
+    /* 
     @GetMapping(path = "/reservations")
     public ResponseEntity<List<Reservation>> getAll(){
         if(bucket.tryConsume(1)) {
@@ -60,7 +61,7 @@ public class ReservationController {
         ResponseEntity<List<Reservation>> response = ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
         return response;
     }
-
+    */
 
     @GetMapping(path = "/reservation/{date}")
     public ResponseEntity<List<Reservation>> getReservation(@PathVariable String date){

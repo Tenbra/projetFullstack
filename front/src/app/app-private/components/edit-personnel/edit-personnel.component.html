@@ -13,18 +13,17 @@
     <br>
     <label for="role">Role :</label>
     <select formControlName="role" id="role" >
-        <option value="MEDECIN">Medecin</option>
-        <option value="ADMIN">Administrateur</option>
-        <option value="SUPER">Super Admin</option>
+        <option *ngIf="service.hasRole('ADMIN')" value="MEDECIN">Medecin</option>
+        <option *ngIf="service.hasRole('SUPER_ADMIN')" value="ADMIN">Administrateur</option>
+        <option *ngIf="service.hasRole('SUPER_ADMIN')" value="SUPER">Super Admin</option>
     </select>
     <br>
     <label for="centre">Centre de rattachement :</label>
     <select formControlName="centre" id="centre" >
-        <option *ngFor="let center of centres" value="{{center.id}}">{{center.nom}}</option>
+        <option *ngFor="let center of centres" value="{{center.id}} ">{{center.nom}}</option>
     </select>
     <br>
     <button (click)="annuler()">Annuler</button>
-    <button (click)="desactiver()">Desactiver</button>
   
     <button type="submit" 
         (click)="enregistrer()"
