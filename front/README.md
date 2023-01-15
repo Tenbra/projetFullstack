@@ -1,9 +1,4 @@
-# Etudiants sur le projet :
 
-**31806683** KLAM Gautier   
-**31827076** TENEDE TENE Miguel Bryan  
-
-# Documentation :
 
 ## Pages publiques :
 
