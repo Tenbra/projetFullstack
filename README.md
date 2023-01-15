@@ -3,6 +3,10 @@
 **31806683** KLAM Gautier   
 **31827076** TENEDE TENE Miguel Bryan  
 
+Ce git a été créé pour avoir un seul depot.
+Ci dessous les liens git des projets où nous avons travaillés :
+* front : https://github.com/GautierKlam/fullstack_front
+* back : https://github.com/GautierKlam/fullstack_covid
 
 # FrontEnd
 
