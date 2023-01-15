@@ -38,7 +38,7 @@ Dans cette page il y a tous les RDV qu'il y a sur le centre du medecin/admin en 
 
 #### Page Config : 
 
-Dans cet onglet on peut modifier tous les personnels du centre (mots de passes etc...).
+Dans cet onglet on peut modifier tous les personnels du centre (mots de passes etc...). Cette page est accessible que par les super-admins.
 
 ## Les services
 
