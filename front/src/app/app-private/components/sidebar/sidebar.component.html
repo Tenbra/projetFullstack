@@ -1,7 +1,14 @@
-<ul>
-    <li><a routerLink="centres">Centres</a></li>
-    <li><a routerLink="centre/0">Mon centre</a></li>
-    <li><a routerLink="planning">Planning</a></li>
-    <li><a routerLink="config">Config</a></li>
-</ul>
+<div>
+    <button mat-raised-button color="warn" style="margin-left: 5%;" mat-button [matMenuTriggerFor]="menu">Menu Admin</button>
+    <button mat-raised-button style="float: right;margin-right: 5%;" color="warn" (click)="logout()">Logout</button>
+
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="home">Home</button>
+        <button mat-menu-item routerLink="centres">Centres</button>
+        <button mat-menu-item routerLink="centre/0">Mon centre</button>
+        <button mat-menu-item routerLink="planning">Planning</button>
+        <button mat-menu-item routerLink="config">Config</button>
+    </mat-menu>
+    
+</div>
 <router-outlet></router-outlet>

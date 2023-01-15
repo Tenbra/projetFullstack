@@ -9,6 +9,8 @@ import { VaccinationCenter } from '../model/vaccination-center';
 })
 export class VaccinationService {
 
+  message!: string;
+
   public all_center_etag! : string;
   public all_center! : VaccinationCenter[];
 
@@ -26,21 +28,21 @@ export class VaccinationService {
   constructor(private httpClient: HttpClient) { }
 
   getAllVaccinationCenter() : Observable<any>{    
-    return this.httpClient.get<any>("api/public/centres", {
+    return this.httpClient.get<any>("http://localhost:8080/api/public/centres", {
       observe: "response",
       headers : new HttpHeaders({'If-None-Match': String(this.all_center_etag)})
     });
   }
 
   getVaccinationCenterById(id : number) : Observable<any>{
-    return this.httpClient.get<any>("api/public/centres/"+id, {
+    return this.httpClient.get<any>("http://localhost:8080/api/public/centres/"+id, {
       observe: "response",
       headers : new HttpHeaders({'If-None-Match':String(this.center_by_id_etag)})
     });
   }
 
   getVaccinationCenterByVille(city: string) : Observable<any>{
-    return this.httpClient.get<any>("api/public/centres/search", {
+    return this.httpClient.get<any>("http://localhost:8080/api/public/centres/search", {
       params: {
         "ville": city
       },
@@ -50,6 +52,6 @@ export class VaccinationService {
   }
 
   createReservation(reservation: Reservation) : Observable<any>{
-    return this.httpClient.post<any>("api/public/reservation", reservation, {observe: "response"});
+    return this.httpClient.post<any>("http://localhost:8080/api/public/reservation", reservation, {observe: "response"});
   }
 }

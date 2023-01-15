@@ -1,13 +1,10 @@
 package org.polytech.covid.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.polytech.covid.entities.Personnel;
-import org.polytech.covid.entities.Role;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;

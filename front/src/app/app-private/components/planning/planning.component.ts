@@ -15,7 +15,6 @@ export class PlanningComponent implements OnInit {
   patient! : string;
   reservations! : Reservation[];
   date! : Date;
-  day = 0;
 
   constructor(
     private service: AdminService
@@ -52,19 +51,17 @@ export class PlanningComponent implements OnInit {
   }
 
   next(): void {
-    this.day+=1;
     let tomorrow = new Date();
-    tomorrow.setDate(this.date.getDate()+this.day);
-    if (tomorrow<=new Date()){
-      this.getReservations(tomorrow);
-    }
-    else{this.day-=1}
+    tomorrow.setDate(this.date.getDate()+1);
+    this.date = tomorrow;
+    this.getReservations(tomorrow);
+    
   }
 
   prev(): void {
-    this.day-=1;
     let yesterday = new Date();
-    yesterday.setDate(this.date.getDate()+this.day);
+    yesterday.setDate(this.date.getDate()-1);
+    this.date = yesterday;
     this.getReservations(yesterday);
   }
 }

@@ -1,9 +1,15 @@
-<div >
+<div class="container">
     <ul *ngFor="let center of centers">
+        <mat-card class="card">           
         <app-vaccination-center (deleted)="onDelete($event)" [selectedCentre]="center"></app-vaccination-center>
         <div *ngIf="personnel == null">
-            <a routerLink="centers/{{center.id}}" >Choisir</a>
+            <br>
+            <button mat-flat-button color="primary" style="margin-bottom: 10px;"><a routerLink="centers/{{center.id}}" >Choisir</a></button>
         </div>
+        <mat-card-footer>
+            <mat-progress-bar mode="query"></mat-progress-bar>
+        </mat-card-footer>
         
-    </ul>
+        </mat-card>
+</ul>
 </div>

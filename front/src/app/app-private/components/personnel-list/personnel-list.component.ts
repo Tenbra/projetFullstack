@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Personnel } from 'src/app/core/model/personnel';
-import { AdminService } from 'src/app/core/service/admin.service';
 
 @Component({
   selector: 'app-personnel-list',
@@ -10,6 +8,7 @@ import { AdminService } from 'src/app/core/service/admin.service';
 })
 export class PersonnelListComponent {
 
+  columnsDisplay: string[] = ["id","prenom","nom","action1","action2"]
   @Input() personnels! : Personnel[];
   @Input() role! : string;
   @Output() deleted = new EventEmitter<Personnel>();

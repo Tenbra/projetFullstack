@@ -31,7 +31,7 @@ export class InputRechercheComponent implements OnInit {
     this.service.getAllVaccinationCenter().subscribe(resp =>{
     this.service.all_center = resp.body;
     this.centers = resp.body;
-    this.service.all_center_etag = resp.headers.get("etag");
+    this.service.all_center_etag = resp.headers.get("Etag");    
     }, error => {
       this.centers = this.service.all_center;
     });
@@ -45,8 +45,8 @@ export class InputRechercheComponent implements OnInit {
       this.service.getVaccinationCenterByVille(villeSearched).subscribe(resp =>{
         this.service.center_by_ville = resp.body;
         this.centers = resp.body;
-        this.service.center_by_ville_etag = resp.headers.get("etag");
-        }, error => {
+        this.service.center_by_ville_etag = resp.headers.get("Etag");
+      }, error => {
           this.centers = this.service.center_by_ville;
         });
     }

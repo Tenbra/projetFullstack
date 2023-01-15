@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Personnel } from 'src/app/core/model/personnel';
 
 import { VaccinationCenter } from 'src/app/core/model/vaccination-center';
 import { AdminService } from 'src/app/core/service/admin.service';
 import { VaccinationService } from 'src/app/core/service/vaccination.service';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-mon-centre',
@@ -24,8 +25,8 @@ export class MonCentreComponent implements OnInit {
   constructor(
     private service: AdminService,
     private route: ActivatedRoute,
-    private servicePublic: VaccinationService
-
+    private servicePublic: VaccinationService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -78,14 +79,15 @@ export class MonCentreComponent implements OnInit {
   onDeleted(personnel : Personnel){
     this.service.deletePersonnel(personnel.id).subscribe(msg =>{
       this.getPersonnels();
-    }, error => {
-      if (error.status==403){
-        //Coder la modale qui demande d'actualiser
-        alert("Vous n'avez pas les droits necessaires pour effectuer cette opération")
-      }
-      else alert("Operation impossible à realiser")
+    }, error => { 
+      this.openDialog("Vous n'avez pas les droits necessaires pour effectuer cette opération")
       this.getPersonnels();
     });
+  }
+
+  openDialog(text : string) {
+    this.service.message = text
+    this.dialog.open(DialogComponent);
   }
 
 

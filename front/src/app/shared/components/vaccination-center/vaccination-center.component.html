@@ -1,3 +1,4 @@
+    
     <h2>{{selectedCentre.nom }}</h2>
     <div>
         {{selectedCentre.adresse.complement}}
@@ -6,11 +7,12 @@
     </div>
 
 
-    <div *ngIf="personnel != null">
+    <div *ngIf="personnel != undefined">
         <div *ngIf='admin.hasRole("SUPER_ADMIN")'>
-            <button routerLink="/private/centres/{{selectedCentre.id}}">Modifier</button>
-            <button routerLink="/private/centre/{{selectedCentre.id}}">Personnels</button>
-            <button (click)="supprimer()">Supprimer</button>
+            <br>
+            <button mat-raised-button color="warn" routerLink="/private/centres/{{selectedCentre.id}}">Modifier</button>
+            <button mat-raised-button color="warn" routerLink="/private/centre/{{selectedCentre.id}}">Personnels</button>
+            <button mat-raised-button color="warn" (click)="supprimer()">Supprimer</button>
 
         </div>
     </div>

@@ -1,12 +1,19 @@
-<div *ngIf="centre !== null">
-    <app-vaccination-center [selectedCentre]="centre"></app-vaccination-center>
+<br><br>
+<div class="planning">
+    <div *ngIf="centre !== null">
+        <app-vaccination-center [selectedCentre]="centre"></app-vaccination-center>
+    </div>
+    <br>
+        <a mat-raised-button color="warn" (click)="prev()" >←</a>
+        <span>   {{date.toLocaleDateString()}}   </span>
+        <a mat-raised-button color="warn" (click)="next()">→</a>
+        
+    <div>
+        <br>
+        <mat-form-field>
+            <mat-label for="nom">Filtrez par nom: </mat-label>
+            <input matInput placeholder="Nom..." id="nom" type="search" [(ngModel)]="patient" (keyup)="getReservationsByName(date, patient)">
+        </mat-form-field>
+    </div>
+    <app-reservation-list [reservations]="reservations"> </app-reservation-list>
 </div>
-<ul>
-    <li><a (click)="prev()" >prev</a></li>
-    <li><span>{{date.toLocaleDateString()}}</span></li>
-    <li><a (click)="next()">next</a></li>
-</ul>
-<div>
-    <input type="search" [(ngModel)]="patient" (keyup)="getReservationsByName(date, patient)" >
-</div>
-<app-reservation-list [reservations]="reservations"> </app-reservation-list>

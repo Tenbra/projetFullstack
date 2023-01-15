@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Reservation } from 'src/app/core/model/reservation';
 import { AdminService } from 'src/app/core/service/admin.service';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-reservation-list',
@@ -11,13 +13,16 @@ import { AdminService } from 'src/app/core/service/admin.service';
 })
 export class ReservationListComponent implements OnInit {
 
+  columnsDisplay: string[] = ["id","prenom","nom","action1"]
+
   @Input() reservations! : Reservation[];
 
   reservation! : Reservation;
 
   constructor(
     private service: AdminService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
     ) { }
 
   ngOnInit(): void {
@@ -31,14 +36,19 @@ export class ReservationListComponent implements OnInit {
       this.router.navigateByUrl('private/home');
     }, error => {
       if (error.status==412){
-        //Coder la modale qui demande d'actualiser
-        alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+        this.openDialog("La ressource n'est plus à jour, la page va etre rechargé")
+      }
+      else{
+        this.openDialog("Votre role ne vous permet pas de valider cette reservation")
       }
     });
   }
 
-
-
+  
+  openDialog(text : string) {
+    this.service.message = text
+    this.dialog.open(DialogComponent);
+  }
   
 
 }

@@ -26,7 +26,7 @@ export class RoleGuard implements CanActivate {
             return false
           }
         }
-    else if (route.url[0].path.startsWith("centre") ){              
+    else if (route.url[0].path.startsWith("centre") ){                    
             if (this.admin.hasRole("ADMIN") && route.url[1].path =='0') return true;
             if (this.admin.hasRole("SUPER_ADMIN") && route.url[1].path !='0') return true;
             else{

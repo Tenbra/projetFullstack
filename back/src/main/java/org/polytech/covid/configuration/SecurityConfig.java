@@ -21,7 +21,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, UserDetailsService userDetailsService) throws Exception {
         http
+        .cors().disable()
+        .csrf().disable() //Desactivation de la protection csrf
         .authorizeHttpRequests()
+            .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+            
             .antMatchers(HttpMethod.GET, "/api/public/**","/api/auth/**").permitAll()
             .antMatchers(HttpMethod.POST, "/api/public/**","/api/auth/**").permitAll()
 
@@ -41,8 +45,6 @@ public class SecurityConfig {
             .anyRequest().authenticated()
             .and()
         .httpBasic(withDefaults())
-        .cors().disable()
-        .csrf().disable() //Desactivation de la protection csrf
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         return http.build();
     }

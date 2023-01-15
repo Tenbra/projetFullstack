@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Personnel } from 'src/app/core/model/personnel';
 import { VaccinationCenter } from 'src/app/core/model/vaccination-center';
 import { AdminService } from 'src/app/core/service/admin.service';
 import { VaccinationService } from 'src/app/core/service/vaccination.service';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-centers-edit',
@@ -23,7 +24,8 @@ export class CentersEditComponent {
     private route: ActivatedRoute,
     private service: AdminService,
     private servicePublic: VaccinationService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -94,13 +96,17 @@ export class CentersEditComponent {
         this.centre = resp.body
       }, error => {
         if (error.status==412){
-          //Coder la modale qui demande d'actualiser
-          alert("La ressource n'est plus à jour, veuillez la recharger avant de la modifier")
+          this.openDialog("La ressource n'est plus à jour, la page va etre rechargé")
         }
       });
       this.router.navigateByUrl("/private/home")
     }
     
+  }
+
+  openDialog(text : string) {
+    this.service.message = text
+    this.dialog.open(DialogComponent);
   }
 
   annuler(){

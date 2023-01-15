@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { DialogComponent } from 'src/app/shared/components/dialog/dialog.component';
 import { Reservation } from '../../../core/model/reservation';
 import { VaccinationCenter } from '../../../core/model/vaccination-center';
 import { VaccinationService } from '../../../core/service/vaccination.service';
@@ -23,7 +25,8 @@ export class ReservationComponent implements OnInit {
     private formbuilder: FormBuilder,
     private route: ActivatedRoute,
     private service: VaccinationService,
-    private router: Router ) { }
+    private router: Router,
+    private dialog: MatDialog ) { }
 
   ngOnInit(): void {
 
@@ -63,8 +66,15 @@ export class ReservationComponent implements OnInit {
     
     this.service.createReservation(this.reservation).subscribe(result =>{
       this.router.navigate(['public/reservation'], {skipLocationChange: true})
+    }, error => {
+      this.openDialog("Nombre de requetes epuisés, veuillez attendre une minute et reessayez")
     });
     
+  }
+
+  openDialog(text : string) {
+    this.service.message = text
+    this.dialog.open(DialogComponent);
   }
 
 }

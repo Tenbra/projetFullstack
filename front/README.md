@@ -1,27 +1,29 @@
-# CovidFront
+# Etudiants sur le projet :
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.3.
+**31806683** KLAM Gautier   
+**31827076** TENEDE TENE Miguel Bryan  
 
-## Development server
+# Documentation :
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Pages publiques :
 
-## Code scaffolding
+Quand vous arrivez sur la page publique, vous pourrez choisir le centre de vaccination que vous voulez. Dans la zone de recherche il faut taper le nom de la ville.
+Ensuite intervient l'inscription, avec nom, prénom, adresse email et la date. Suite à cette réservation arrive une page de confirmation qui notifie que la réservation a bien été prise en compte.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Pages privates : 
 
-## Build
+Quand vous arrivez sur la première page, il faut se connecter avec un identifiant et un mot de passe. Pour utiliser un compte admin il faut le compte ci :  
+Pour le super-admin il faut ce compte : 
+Arrivé à la page home, à gauche se trouve un menu où on peut accéder à toutes les pages : centres, mon centre, planning et config.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Page centres : 
 
-## Running unit tests
+Sur cette page, un super admin peut modifier et supprimer un centre. On peut aussi voir les personnels qui sont affiliés à ce centre.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Page mon centre : 
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+### Page planning : 
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Page Config : 

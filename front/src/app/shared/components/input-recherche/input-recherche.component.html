@@ -1,8 +1,10 @@
 <div>
-    <input type="search" placeholder="Entrez une ville" size="50" [(ngModel)]="ville" (keyup)="getVaccinationCenterByVille(ville)"/>
+    <input type="search" placeholder="🔎 Trouvez votre centre" size="150" [(ngModel)]="ville" (keyup)="getVaccinationCenterByVille(ville)"/>
 </div>
+
 <div *ngIf='admin.hasRole("SUPER_ADMIN")'>
-    <button routerLink="/private/centres/0">Nouveau</button>
+    <br>
+    <button mat-raised-button color="warn" routerLink="/private/centres/0">Nouveau</button>
 </div>
 <br>
 <app-vaccination-center-list *ngIf="centers" (deleted)="onDeleted($event)"  [centers]="centers" ></app-vaccination-center-list>

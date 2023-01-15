@@ -1,8 +1,31 @@
 <div *ngIf="reservations">
-    <ul *ngFor="let reser of reservations">
-        <li>{{reser.patient.prenom}} {{reser.patient.nom}}  
-            <button *ngIf="reser.personnel==null" (click)="validate(reser.id)">Valider</button>
-            <span *ngIf="reser.personnel!=null">yes</span>
-        </li> 
-    </ul>
+
+    <table mat-table [dataSource]="reservations" class="mat-elevation-z8" style="margin: auto;">
+    
+    
+        <tbody >
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let reser"> {{reser.patient.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="prenom">
+                <th mat-header-cell *matHeaderCellDef> Prenom </th>
+                <td mat-cell *matCellDef="let reser"> {{reser.patient.prenom}} </td>
+            </ng-container>
+            <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                <td mat-cell *matCellDef="let reser"> {{reser.patient.nom}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action1">
+                <th mat-header-cell *matHeaderCellDef> Action 1 </th>
+                <td mat-cell *matCellDef="let reser">
+                    <button mat-raised-button color="warn" *ngIf="reser.personnel==null" (click)="validate(reser.id)">Valider</button>
+                    <span *ngIf="reser.personnel!=null">Validé</span>
+                </td>
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="columnsDisplay"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsDisplay;"></tr>
+        </tbody>
+    </table>    
 </div>

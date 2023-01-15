@@ -31,14 +31,14 @@ export class AuthenticationService {
   }
 
   sendCredentials(login: string, password: string) : Observable<Personnel>{
-    return this.httpClient.post<Personnel>("api/auth/login", {
+    return this.httpClient.post<Personnel>("http://localhost:8080/api/auth/login", {
       email : login,
       password : password
     })
   }
 
   disconnect() : Observable<Personnel>{
-    return this.httpClient.get<Personnel>("api/auth/logout")
+    return this.httpClient.get<Personnel>("http://localhost:8080/api/auth/logout")
   }
 
   logout(){
