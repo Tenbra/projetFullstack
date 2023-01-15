@@ -1,10 +1,10 @@
 
 Les utilisatuers créés par defaut sont :
 
-login : tenede@bryan.com, mot de pass : password, role : Admin
-login : tene@bryan.com, mot de pass : password, role : Medecin
-login : gautier@klam.com, mot de pass : password, role : Medecin
-login : klam@gautier.com, mot de pass : password, role : Super Admin
+* login : tenede@bryan.com, mot de pass : password, role : Admin
+* login : tene@bryan.com, mot de pass : password, role : Medecin
+* login : gautier@klam.com, mot de pass : password, role : Medecin
+* login : klam@gautier.com, mot de pass : password, role : Super Admin
 
 Ils sont tous associé au centre no 1
 
