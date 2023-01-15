@@ -30,12 +30,15 @@ Sur cette page, un super admin peut modifier et supprimer un centre. On peut aus
 
 #### Page mon centre : 
 
-
+Sur cette page se trouve tous les personnels du centre où l'utilisateur est affilié.
 
 #### Page planning : 
 
+Dans cette page il y a tous les RDV qu'il y a sur le centre du medecin/admin en un jour précis.
+
 #### Page Config : 
 
+Dans cet onglet on peut modifier tous les personnels du centre (mots de passes etc...).
 
 ## Les services
 
